@@ -28,8 +28,8 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
+							"mode": "urlencoded",
+							"urlencoded": [
 								{
 									"key": "username",
 									"value": "{{username}}",
@@ -76,6 +76,74 @@
 			"item": [
 				{
 					"name": "Basemaps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const res = pm.response.json();\r",
+									"// console.log('res', res);\r",
+									"\r",
+									"\r",
+									"// var template = `\r",
+									"//  <link rel=\"stylesheet\" href=\"https://js.arcgis.com/4.22/esri/themes/light/main.css\">\r",
+									"//     <script src=\"https://js.arcgis.com/4.22/\"></script>\r",
+									"//     <style>\r",
+									"//       #viewDiv {\r",
+									"//         padding: 0;\r",
+									"//         margin: 0;\r",
+									"//         height: 100%;\r",
+									"//         width: 100%;\r",
+									"//       }\r",
+									"//     </style>\r",
+									"//       <script>\r",
+									"//         function set(token) {\r",
+									"//             pm.environment.get(\"token\", token);\r",
+									"//         }\r",
+									"\r",
+									"//       require([\"esri/config\",\"esri/Map\", \"esri/views/MapView\"], function (esriConfig,Map, MapView) {\r",
+									"\r",
+									"//         esriConfig.apiKey = set({{token}});\r",
+									"\r",
+									"//         const map = new Map({\r",
+									"//           basemap: \"arcgis-topographic\" // Basemap layer service\r",
+									"//         });\r",
+									"\r",
+									"//         const view = new MapView({\r",
+									"//           map: map,\r",
+									"//           center: [-8.710888, 42.317804],\r",
+									"//           zoom: 10, \r",
+									"//           container: \"viewDiv\" \r",
+									"//         });\r",
+									"\r",
+									"//       });\r",
+									"//     </script>\r",
+									"//     <div id=\"viewDiv\"></div>\r",
+									"// `\r",
+									"\r",
+									"// pm.visualizer.set(template, { \r",
+									"//     response: pm.response.json()\r",
+									"// })\r",
+									"\r",
+									"var template = `\r",
+									"<a onclick=\"set('{{id}}')\">{{id}}</a>\r",
+									"\r",
+									"<script>\r",
+									"function set(id) {\r",
+									"pm.collectionVariables.set(\"id\", id);\r",
+									"}\r",
+									"</script>\r",
+									"`;\r",
+									"\r",
+									"pm.visualizer.set(template, {\r",
+									"    response: pm.response.json()\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"followOriginalHttpMethod": true
 					},
@@ -83,7 +151,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray/?type=style&apiKey={{api-key}}",
+							"raw": "https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray/?type=style&apiKey={{token}}",
 							"protocol": "https",
 							"host": [
 								"basemaps-api",
@@ -105,7 +173,7 @@
 								},
 								{
 									"key": "apiKey",
-									"value": "{{api-key}}"
+									"value": "{{token}}"
 								},
 								{
 									"key": "basemapStyle",
@@ -771,7 +839,47 @@
 					"name": "Informe demográfico",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/createReport?report=acs_housing&format=pdf&f=pjson&studyAreas=[{\"address\":{\"text\":\"380 New York St. Redlands, CA 92373\"}},{\"address\":{\"text\":\"3722 Crenshaw Blvd, Los Angeles, CA 90016\"}},{\"address\":{\"text\":\"2103 N Hall St, Dallas, TX 75204\"}},{\"address\":{\"text\":\"2807 N. Campbell Road, Tucson, AZ 85719\"}},{\"address\":{\"text\":\"30 W Erie St, Chicago, IL 60654\"}}]&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"geoenrich",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"geoenrichmentserver",
+								"GeoEnrichment",
+								"createReport"
+							],
+							"query": [
+								{
+									"key": "report",
+									"value": "acs_housing"
+								},
+								{
+									"key": "format",
+									"value": "pdf"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "studyAreas",
+									"value": "[{\"address\":{\"text\":\"380 New York St. Redlands, CA 92373\"}},{\"address\":{\"text\":\"3722 Crenshaw Blvd, Los Angeles, CA 90016\"}},{\"address\":{\"text\":\"2103 N Hall St, Dallas, TX 75204\"}},{\"address\":{\"text\":\"2807 N. Campbell Road, Tucson, AZ 85719\"}},{\"address\":{\"text\":\"30 W Erie St, Chicago, IL 60654\"}}]"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
 					},
 					"response": []
 				}
