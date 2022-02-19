@@ -1,0 +1,1282 @@
+{
+	"info": {
+		"_postman_id": "97533f93-aad1-4700-897b-97e527e134cf",
+		"name": "ArcGIS Location Service - Experto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get access token",
+			"item": [
+				{
+					"name": "Get ArcGIS Online Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"tests[\"Access token is present\"] = responseBody.has(\"token\");\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text"
+								},
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://www.arcgis.com/sharing/rest/generateToken",
+							"protocol": "https",
+							"host": [
+								"www",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"sharing",
+								"rest",
+								"generateToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Basemaps",
+			"item": [
+				{
+					"name": "Basemaps",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://basemaps-api.arcgis.com/arcgis/rest/services/styles/ArcGIS:DarkGray/?type=style&apiKey={{api-key}}",
+							"protocol": "https",
+							"host": [
+								"basemaps-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"styles",
+								"ArcGIS:DarkGray",
+								""
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "style"
+								},
+								{
+									"key": "apiKey",
+									"value": "{{api-key}}"
+								},
+								{
+									"key": "basemapStyle",
+									"value": "ArcGIS:DarkGray",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Geocoding",
+			"item": [
+				{
+					"name": "Autocompletar/sugerencias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?token={{token}}&f=pjson&text=Madr",
+							"protocol": "https",
+							"host": [
+								"geocode-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"GeocodeServer",
+								"suggest"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "text",
+									"value": "Madr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar dirección",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?token={{token}}&f=pjson&singleLine=Calle Emilio Muñoz, Madrid",
+							"protocol": "https",
+							"host": [
+								"geocode-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"GeocodeServer",
+								"findAddressCandidates"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "singleLine",
+									"value": "Calle Emilio Muñoz, Madrid"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar POI global",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?token={{token}}&f=pjson&address=grand canyon",
+							"protocol": "https",
+							"host": [
+								"geocode-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"GeocodeServer",
+								"findAddressCandidates"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "address",
+									"value": "grand canyon"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar POI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?token={{token}}&f=pjson&address=Starbucks&location=-3.703339,40.416729&outfields=PlaceName,Place_addr",
+							"protocol": "https",
+							"host": [
+								"geocode-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"GeocodeServer",
+								"findAddressCandidates"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "address",
+									"value": "Starbucks"
+								},
+								{
+									"key": "location",
+									"value": "-3.703339,40.416729",
+									"description": "longitud,latitud"
+								},
+								{
+									"key": "outfields",
+									"value": "PlaceName,Place_addr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista direcciones / Batch geocoding",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "addresses",
+									"value": "{\n    \"records\": [\n       {\n        \"attributes\": {\n            \"objectid\": 1,\n            \"address\": \"Buckingham Palace\"\n        }\n        },\n        {\n            \"attributes\": {\n                \"objectid\": 2,\n                \"address\": \"Bernardis Restaurant London\"\n            }\n        },\n        {\n            \"attributes\": {\n                \"objectid\": 3,\n                \"address\": \"58 Brewer Street, London, England\"\n            }\n        }\n    ]\n}  ",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "f",
+									"value": "pjson",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/geocodeAddresses",
+							"protocol": "https",
+							"host": [
+								"geocode",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"GeocodeServer",
+								"geocodeAddresses"
+							]
+						},
+						"description": "[Full description of the service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-geocode-addresses.htm)\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Geocode inverso / Reverse geocoding",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?token={{token}}&f=pjson&location=-79.3871,43.6426",
+							"protocol": "https",
+							"host": [
+								"geocode-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"GeocodeServer",
+								"reverseGeocode"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "location",
+									"value": "-79.3871,43.6426"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rutas",
+			"item": [
+				{
+					"name": "Ruta entre dos puntos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve?f=json&token={{token}}&stops=-3.696715,40.436614;-3.673884,40.430277&returnDirections=true&directionsLanguage=es",
+							"protocol": "https",
+							"host": [
+								"route-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"Route",
+								"NAServer",
+								"Route_World",
+								"solve"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "stops",
+									"value": "-3.696715,40.436614;-3.673884,40.430277"
+								},
+								{
+									"key": "startTime",
+									"value": "now",
+									"disabled": true
+								},
+								{
+									"key": "returnDirections",
+									"value": "true"
+								},
+								{
+									"key": "directionsLanguage",
+									"value": "es"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Closest Facility",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "incidents",
+									"value": "{\"spatialReference\": {\"latestWkid\": 3857,\"wkid\": 102100},\"features\": [{\"geometry\": {\"x\": -13656119.041436872,\"y\": 5703857.952531632},\"attributes\": {\"Name\": \"322 SW 4th Ave, Portland, OR, 97204, USA\"}}]}",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text"
+								},
+								{
+									"key": "facilities",
+									"value": "{ \"spatialReference\": { \"latestWkid\": 3857, \"wkid\": 102100 }, \"features\": [{ \"geometry\": { \"x\": -13656100.72194608, \"y\": 5703897.952531632 }, \"attributes\": { \"Name\": \"Downtown Grocery, 310 SW 4th Ave, Portland, OR, 97204, USA\" } }, { \"geometry\": { \"x\": -13657081.446659965, \"y\": 5704279.273731899 }, \"attributes\": { \"Name\": \"Whole Foods Market, 1210 NW Couch St, Portland, OR, 97209, USA\" } }, { \"geometry\": { \"x\": -13654900.697835328, \"y\": 5704360.306582605 }, \"attributes\": { \"Name\": \"Pacific Coast Fruit Company, 201 NE 2nd Ave, Portland, Oregon, 97232\" } }, { \"geometry\": { \"x\": -13654793.831124166, \"y\": 5703907.485363393 }, \"attributes\": { \"Name\": \"Nicky USA, 223 SE 3rd Ave, Portland, OR, 97214, USA\" } }, { \"geometry\": { \"x\": -13654829.453361219, \"y\": 5703721.596977669 }, \"attributes\": { \"Name\": \"Alexis Foods, 215 SE Stark St, Portland, OR, 97214, USA\" } }, { \"geometry\": { \"x\": -13654680.285243554, \"y\": 5703712.064344136 }, \"attributes\": { \"Name\": \"Sheridan Fruit Company, 408 SE Martin Luther King, Portland, OR, 97214, USA\" } }, { \"geometry\": { \"x\": -13654723.699844966, \"y\": 5703513.470124055 }, \"attributes\": { \"Name\": \"Graziano Food Services, 302 SE Washington St, Portland, OR, 97214, USA\" } }, { \"geometry\": { \"x\": -13654781.585980177, \"y\": 5703484.872919755 }, \"attributes\": { \"Name\": \"Rinella Produce, 231 SE Alder St, Portland, OR, 97214, USA\" } } ] }",
+									"type": "text"
+								},
+								{
+									"key": "defaultTargetFacilityCount",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "returnFacilities",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "returnCFRoutes",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://route-api.arcgis.com/arcgis/rest/services/World/ClosestFacility/NAServer/ClosestFacility_World/solveClosestFacility",
+							"protocol": "https",
+							"host": [
+								"route-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"ClosestFacility",
+								"NAServer",
+								"ClosestFacility_World",
+								"solveClosestFacility"
+							]
+						},
+						"description": "[Full description of the service](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Closest_Facility_service_with_synchronous_execution/02r3000000n7000000/) //\n[View JS Demo](http://developers.arcgis.com/javascript/samples/routetask_closest_facility/)"
+					},
+					"response": []
+				},
+				{
+					"name": "Área de servicio",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://route-api.arcgis.com/arcgis/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea?f=json&token={{token}}&facilities=-122.253,37.757",
+							"protocol": "https",
+							"host": [
+								"route-api",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"ServiceAreas",
+								"NAServer",
+								"ServiceArea_World",
+								"solveServiceArea"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "facilities",
+									"value": "-122.253,37.757"
+								}
+							]
+						},
+						"description": "[Full description of the service](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Service_Area_service_with_synchronous_execution/02r3000000n2000000/) // \n[View JS Demo](http://developers.arcgis.com/javascript/samples/routetask_basic_servicearea/)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Geoenriquecimiento",
+			"item": [
+				{
+					"name": "Geoenrich XY location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/enrich?studyareas=[{\"geometry\":{\"x\":-3.70,\"y\":40.41}}]&f=pjson&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"geoenrich",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"geoenrichmentserver",
+								"GeoEnrichment",
+								"enrich"
+							],
+							"query": [
+								{
+									"key": "studyareas",
+									"value": "[{\"geometry\":{\"x\":-3.70,\"y\":40.41}}]"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "analysisVariables",
+									"value": "[\"CountryOfBirthAIS.BRNSPAN\"]",
+									"disabled": true
+								}
+							]
+						},
+						"description": "[Description of the service](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Input_XY_locations/02r300000006000000/)"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener variables",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GetVariables/execute?sourcecountry=ES&f=json&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"geoenrich",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"geoenrichmentserver",
+								"GetVariables",
+								"execute"
+							],
+							"query": [
+								{
+									"key": "sourcecountry",
+									"value": "ES"
+								},
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "[List of variables you can use to geoenrich](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Get_variables/02r300000266000000/)"
+					},
+					"response": []
+				},
+				{
+					"name": "Dirección",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/enrich?studyareas=[{\"address\":{\"text\":\"Avenida América 45, Madrid\"}}]&f=pjson&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"geoenrich",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"geoenrichmentserver",
+								"GeoEnrichment",
+								"enrich"
+							],
+							"query": [
+								{
+									"key": "studyareas",
+									"value": "[{\"address\":{\"text\":\"Avenida América 45, Madrid\"}}]"
+								},
+								{
+									"key": "f",
+									"value": "pjson"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "[Description of the service](https://developers.arcgis.com/rest/geoenrichment/api-reference/street-address-locations.htm)"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear informe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/createReport?studyAreas=[{\"address\":{\"text\":\"10685 NW Dumar Ln. Portland, OR 97229\"}},{\"address\":{\"text\":\"380 New York St. Redlands, CA 92373\"}},{\"address\":{\"text\":\"3722 Crenshaw Blvd, Los Angeles, CA 90016\"}}]&studyAreasOptions={\"areaType\":\"RingBuffer\",\"bufferUnits\":\"esriMiles\",\"bufferRadii\":[3,5,10]}&report=dandi&reportFields={\"title\": \"My Report\",\"subtitle\": \"Produced by my company\"}&useData={\"sourceCountry\":\"US\"}&f=bin&format=pdf&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"geoenrich",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"World",
+								"geoenrichmentserver",
+								"GeoEnrichment",
+								"createReport"
+							],
+							"query": [
+								{
+									"key": "studyAreas",
+									"value": "[{\"address\":{\"text\":\"10685 NW Dumar Ln. Portland, OR 97229\"}},{\"address\":{\"text\":\"380 New York St. Redlands, CA 92373\"}},{\"address\":{\"text\":\"3722 Crenshaw Blvd, Los Angeles, CA 90016\"}}]"
+								},
+								{
+									"key": "studyAreasOptions",
+									"value": "{\"areaType\":\"RingBuffer\",\"bufferUnits\":\"esriMiles\",\"bufferRadii\":[3,5,10]}"
+								},
+								{
+									"key": "report",
+									"value": "dandi"
+								},
+								{
+									"key": "reportFields",
+									"value": "{\"title\": \"My Report\",\"subtitle\": \"Produced by my company\"}"
+								},
+								{
+									"key": "useData",
+									"value": "{\"sourceCountry\":\"US\"}"
+								},
+								{
+									"key": "f",
+									"value": "bin"
+								},
+								{
+									"key": "format",
+									"value": "pdf"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Informe demográfico",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hidrología",
+			"item": [
+				{
+					"name": "Crear Job",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"jobId\", jsonData.jobId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hydro.arcgis.com/arcgis/rest/services/Tools/Hydrology/GPServer/TraceDownstream/submitJob?f=json&env%3AoutSR=102100&InputPoints=%7B%22geometryType%22%3A%22esriGeometryPoint%22%2C%22features%22%3A%5B%7B%22geometry%22%3A%7B%22x%22%3A8691878.02214837%2C%22y%22%3A1839380.6486539925%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D%7D%5D%2C%22sr%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D&SourceDatabase=FINEST&Generalize=True&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"hydro",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"Tools",
+								"Hydrology",
+								"GPServer",
+								"TraceDownstream",
+								"submitJob"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "env%3AoutSR",
+									"value": "102100"
+								},
+								{
+									"key": "InputPoints",
+									"value": "%7B%22geometryType%22%3A%22esriGeometryPoint%22%2C%22features%22%3A%5B%7B%22geometry%22%3A%7B%22x%22%3A8691878.02214837%2C%22y%22%3A1839380.6486539925%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D%7D%5D%2C%22sr%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D"
+								},
+								{
+									"key": "SourceDatabase",
+									"value": "FINEST"
+								},
+								{
+									"key": "Generalize",
+									"value": "True"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Job",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hydro.arcgis.com/arcgis/rest/services/Tools/Hydrology/GPServer/TraceDownstream/jobs/{{jobId}}?f=json&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"hydro",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"Tools",
+								"Hydrology",
+								"GPServer",
+								"TraceDownstream",
+								"jobs",
+								"{{jobId}}"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Análisis espacial",
+			"item": [
+				{
+					"name": "Buffer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "geometries",
+									"value": "{\n  \"geometryType\": \"esriGeometryPoint\",\n  \"geometries\": [\n    {\n      \"x\": -118.80836,\n      \"y\": 34.00217\n    }\n  ]\n}",
+									"type": "text"
+								},
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text"
+								},
+								{
+									"key": "inSr",
+									"value": "4326",
+									"type": "text"
+								},
+								{
+									"key": "distances",
+									"value": "1000",
+									"type": "text"
+								},
+								{
+									"key": "units",
+									"value": "meters",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer/buffer",
+							"protocol": "https",
+							"host": [
+								"tasks",
+								"arcgisonline",
+								"com"
+							],
+							"path": [
+								"ArcGIS",
+								"rest",
+								"services",
+								"Geometry",
+								"GeometryServer",
+								"buffer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calcular densidad",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://analysis1.arcgis.com/arcgis/rest/services/tasks/GPServer/CalculateDensity/submitJob?f=json&inputLayer=%7B%22url%22%3A%22http%3A%2F%2Fservices.arcgis.com%2FQ6ZFRRvMTlsTTFuP%2Farcgis%2Frest%2Fservices%2FNerja_Food%2FFeatureServer%2F0%22%7D&areaUnits=SquareKilometers&classificationType=EqualInterval&numClasses=10&OutputName=%7B%22serviceProperties%22%3A%7B%22name%22%3A%22Densidad%20de%20Nerja%20Food%22%2C%22serviceUrl%22%3A%22http%3A%2F%2Fservices.arcgis.com%2FQ6ZFRRvMTlsTTFuP%2Farcgis%2Frest%2Fservices%2FDensidad%20de%20Nerja%20Food%2FFeatureServer%22%7D%2C%22itemProperties%22%3A%7B%22itemId%22%3A%22b325b865d9b24cbfafff6ce30049f1e4%22%7D%7D&context=%7B%22extent%22%3A%7B%22type%22%3A%22extent%22%2C%22xmin%22%3A-3328453.7107606614%2C%22ymin%22%3A3061018.7587652337%2C%22xmax%22%3A1788546.710760817%2C%22ymax%22%3A5575491.241233723%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D%7D&returnFeatureCollection=false&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"analysis1",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"arcgis",
+								"rest",
+								"services",
+								"tasks",
+								"GPServer",
+								"CalculateDensity",
+								"submitJob"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "inputLayer",
+									"value": "%7B%22url%22%3A%22http%3A%2F%2Fservices.arcgis.com%2FQ6ZFRRvMTlsTTFuP%2Farcgis%2Frest%2Fservices%2FNerja_Food%2FFeatureServer%2F0%22%7D"
+								},
+								{
+									"key": "areaUnits",
+									"value": "SquareKilometers"
+								},
+								{
+									"key": "classificationType",
+									"value": "EqualInterval"
+								},
+								{
+									"key": "numClasses",
+									"value": "10"
+								},
+								{
+									"key": "OutputName",
+									"value": "%7B%22serviceProperties%22%3A%7B%22name%22%3A%22Densidad%20de%20Nerja%20Food%22%2C%22serviceUrl%22%3A%22http%3A%2F%2Fservices.arcgis.com%2FQ6ZFRRvMTlsTTFuP%2Farcgis%2Frest%2Fservices%2FDensidad%20de%20Nerja%20Food%2FFeatureServer%22%7D%2C%22itemProperties%22%3A%7B%22itemId%22%3A%22b325b865d9b24cbfafff6ce30049f1e4%22%7D%7D"
+								},
+								{
+									"key": "context",
+									"value": "%7B%22extent%22%3A%7B%22type%22%3A%22extent%22%2C%22xmin%22%3A-3328453.7107606614%2C%22ymin%22%3A3061018.7587652337%2C%22xmax%22%3A1788546.710760817%2C%22ymax%22%3A5575491.241233723%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D%7D"
+								},
+								{
+									"key": "returnFeatureCollection",
+									"value": "false"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "The Calculate Density task takes known quantities of some phenomenon and spreads these quantities across the map. You can use this task, for example, to show concentrations of lightning strikes or tornados, access to health care facilities, and population densities.\r\n\r\n[Read more](https://developers.arcgis.com/rest/analysis/api-reference/calculate-density.htm)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Compartir información",
+			"item": []
+		},
+		{
+			"name": "Gestión organización",
+			"item": [
+				{
+					"name": "Búsqueda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.arcgis.com/sharing/rest/search?q=Madrid&f=json",
+							"protocol": "https",
+							"host": [
+								"www",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"sharing",
+								"rest",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Madrid"
+								},
+								{
+									"key": "f",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Metadata item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.arcgis.com/sharing/rest/content/items/8b231feca657437e91b1d4d944445996?f=json",
+							"protocol": "https",
+							"host": [
+								"www",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"sharing",
+								"rest",
+								"content",
+								"items",
+								"8b231feca657437e91b1d4d944445996"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar ítem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://www.arcgis.com/sharing/rest/content/users/{{username}}/deleteItems?items=d03f735941c941eea90f15b185fdf539",
+							"protocol": "https",
+							"host": [
+								"www",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"sharing",
+								"rest",
+								"content",
+								"users",
+								"{{username}}",
+								"deleteItems"
+							],
+							"query": [
+								{
+									"key": "items",
+									"value": "d03f735941c941eea90f15b185fdf539"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener info de usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.arcgis.com/sharing/rest/community/users/{{username}}?f=json",
+							"protocol": "https",
+							"host": [
+								"www",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"sharing",
+								"rest",
+								"community",
+								"users",
+								"{{username}}"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								}
+							]
+						},
+						"description": " A user resource representing a registered user of the portal.\nPersonal details of the user, such as e-mail and groups, are returned only to the user or the administrator of the user's organization (the properties in the Response Properties table below).\n\n[Read more](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/User/02r3000000m2000000/)"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener info privada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.arcgis.com/sharing/rest/community/users/{{username}}?f=json&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"www",
+								"arcgis",
+								"com"
+							],
+							"path": [
+								"sharing",
+								"rest",
+								"community",
+								"users",
+								"{{username}}"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "json"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "A user resource representing a registered user of the portal.\nPersonal details of the user, such as e-mail and groups, are returned only to the user or the administrator of the user's organization (the properties in the Response Properties table below).\n\nAdministration token is needed\n\n[Read more](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/User/02r3000000m2000000/)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exportar webmap",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "f",
+							"value": "json",
+							"type": "text"
+						},
+						{
+							"key": "Web_Map_as_JSON",
+							"value": "{\"mapOptions\":{\"showAttribution\":false,\"extent\":{\"xmin\":-563175.7007864189,\"ymin\":4607512.531412451,\"xmax\":-527059.2049217218,\"ymax\":4649285.367370242,\"spatialReference\":{\"wkid\":102100,\"latestWkid\":3857}},\"spatialReference\":{\"wkid\":102100,\"latestWkid\":3857},\"scale\":144447.638572},\"operationalLayers\":[{\"id\":\"VectorTile_2846\",\"title\":\"VectorTile_2846\",\"opacity\":1,\"minScale\":0,\"maxScale\":0,\"type\":\"VectorTileLayer\",\"styleUrl\":\"https://cdn.arcgis.com/sharing/rest/content/items/22ba6e04e4c74aeaa637fa57c9518f04/resources/styles/root.json\",\"token\":\"DygPW5fPG9Chkl1wfKQY88H6_cQPaRWZ7uqAd2M26L5UXRyRBwhGF9yr5sNpVKwOsvqSS9UWqO4803hWxHG09GVnj4D6fwq0elGfTD5AlPWFH5ymU5CTlxxVXHBNQJ3pSYC6cdC3mipZLYEVr10NbaqC--PKozrduwyhMgoHxyZknnNzP3AVE13UrkzepC4D81U7f2ahHcQmgwglEGAlE64213A91fSMtIdhSGZNcIk.\"},{\"id\":\"Hospitales_593\",\"title\":\"Hospitales_593\",\"opacity\":1,\"minScale\":0,\"maxScale\":0,\"layerDefinition\":{\"drawingInfo\":{\"renderer\":{\"type\":\"simple\",\"symbol\":{\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"type\":\"esriPMS\",\"url\":\"85e8d2e8-c7be-4645-a722-ecf03ff66004\",\"imageData\":\"iVBORw0KGgoAAAANSUhEUgAAAHkAAAB5CAYAAAAd+o5JAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAClNJREFUeNrsnctrVFccx38zGY1Gbaa1WoRSQ1HoQiQF3bU4ghsXbRQstOgioX/A9EE3VYgB7aa0kFW7KcnCUEEhCW6yKHREd+0ioAWhXUT6EFvUSY3xlUx6vnPudJKZ37mvuXfuuZPfF25iMpM71/O5v9c595xDJOp4ZTrif3FytE99xVFQx27n3+T87Fcl5/usOuadn+doojgnkJOBWnAAHlJHvzryMX5a2QF/tQp+olgSyPFABcRj6higlcoRymS3JnYtK5UF9fk/qH9Nq2NKQS8L5NbgDlbBasC2aqoKfKI4LpCDxdeiOgZjdsNxuHWAHrUtjmcsglugytKHlM2dCn2O3EZ9bNxM6jxEXc7PXqosEz1/rL4vET1T35ee6SOsKksX1Od/Z0v8Th7yiS8OUPeWLwNmwlqbVGjetI2oe6sDtiu66wJ4AH+6QPTkoToWwpylRE8ffUaXP/95fULWbnnYccv+LbWnl2hzXgNutwD6sfLKi/NBLR1ufCQpN55JCPBZJ+56x1xYJ8Bu26mt1RbByh/+rYHD6v3FbMTrs50NGa55w6YxBW6f53sBFGABOEo3HLUAGKABHOC933+Tnj8ZaqcLbx/k9786R125077ibO+uZNxxFO58/o6/+L28dJ4ufnqmMyAfH9lDPflLpHumOhNueNiztFh+jyaHf0sv5JOj6MQYc429cMUvvkq09SXqOC3cJ3rwh1fMRqweUrF6Kq7L6IoRMBKMb2Cjxve8sINox+uqBNpCHalqXvEyArEqxRaNPgzBjPYfzdCNmVJ6LPnk6JhraYRSaPvuznDNQVz4vdtepde4sughuyFjIKGyfEW54LeM74Fbhnu2OWOOMxOH+4YbN7/numqbd6Ic+MhECpjoR2OC1cmxN/pYjaHNw1GBzrQN8Ct77erMsKEz5e6vbQGdiR0wwALwenTPftw3QJs7USIBnY3gQq8I4LCt7+nh+p32TbCEQhadyb5rTLB27lG+IiswXX1pVpdZy894i85kX1PlVZ8qr6bbD1nXwR8ZAaNEEvlXT94MGhbdQh2dCQkYPVmTRhe96w2BFlZ3brnF6ONhesaCQ9Z90T8R11UpMTjuZKxMi+WDQfu6cyHcyiUWcC2JCAh45fzbwe7K09cS5xDrNdfa8c9fuPIq77T/m/Fl1xgu5DLpkIBFHqD59ux3OMQAGQP+pvFg9GRJR0e0QnuiXdl0WXEAj8gh44kOUyYtXZXxyK1tTTxCQ0a5xD2yg9Ek090mikZoX+6xYvDQZWwEkOsPuzcLtbDE4fjjs7nPoejwadmSh9lsGgP+62k8OEmhndHezco7fFqArIP7IHt34XksUfuE9ua95qBXEuYOWc9s4OOEuOn2u21T/mPi5Am5Pge42XVINp1cts2HyILDKyBkTD4zuQ1Rsm47CC8jZGRs3OzC6gQzSbYST8I4BuBlyLSzxtRcrDh91mzgZoI8yHZ8iBXbY838vOtBf5D1Eg55seJUWnPe4edpyQNs+i4ZtV0yz/YccIdcX2Wn+YQi++pmnssxh6PRkvlVdjBPWGSfzFyOuUEeYBMuGSu2U+DCJ2ADZshYCE1cdfpic6MaOGZXxeMCu9Ld5rw0pM3i+IDjqm7O1ZZcMNZkIrtrZl4s5EMCuKNAH+IgNz+FiYXQRCmAzHLqXwtZd2w3O/duseRUiOeUrw1Y1Cy5z5iii9JRSvFaA7nA1sfy9Ec6BE58vVxYDbmXhSxKj3heVa45Y9JlqasOOg9pXbns5sXh+huz6wYXkJOGS5XLNvMyx+QNknSlSl3eMZkP5qK0x2RyhyzqHE8uTSCQRR0NWerkdQC5lS1zROKuRQJZJJBFgUvotMXkNK7j1Ra58KpZcqnplWVJvFIlnlfJ3V1jc0pReuTCqwZ5rukVP7uViewRz2t2NeTbUienXDyvefeYjD/yt9GkKHFXvWyCXHJ31+Ky0+6q/+eqIet9fZs3s3i6IA2YBvGcyrX9mrONQXqNsAO4yH7xnGYbs2voavMfiyWnAzLL6SoHuRTgBCK7Aa/hWYc8USzRSqX5Lx6XpSFtFscHHMGTsWTMa/2h6Q8W56UhbRbHp4FjY7fmNFsvSyllb+nE18fTbpD5PYce/i0NaqPMXKbMkPXGj1OsS5DeL7sEHnwonWrcwDPrZeoeJxQlGYt5w2vi1wx5ojhOXO+XuGy7NH+H+23Z4UdelgyNs0FeamZ7amM+4RrnfmmCPBrg7hHZYcVGbjxkdGxXli6wd5BYc/JWzDEAL2dAwq8lY77rd2LNKbJiEy9XyLpbrMTeSQv3pbGTENqd96Sl1d2Y/iFDTx99xv7+wR9SNydRF6Pdg3DyBfny5z+zGRs+UNx2+900b1jjDqeQkLVG2Lr5338kCWtnsoX25upizYdag6wzNr6kundb3HY73PS92+aSyZBRB7VkgD6rPuxm0+9RkJvihCgaoX25jg/wABcf8j/h7fmTIWPGJ9l2fNm0qW1NPFqCjOC+vHTeeLfJmHO0QnuavCQ4eCRb4SBDFz89Q9xTnYgbd3+V+BxlHDa356zDwbcygS/g+Mge6sn/RNzSyVj675W9sgZYFIB5z1imxfJBmhz+LV7I0MlRbEkzyb4G0LveEFhhdeeWW+g7rpKtqaCnDGdyN2Zu0f6juEEKTLzQc2V7ZIOSwEKp9Pihub9iovhtmNOG96s3ZkoKdB9xK+ziThTQwQGbq5RxBfjjsKfOtHxxH3x9TcXgt4yuW2J0KzEYr1+n7z9paf2K1heGyXa9w2bcNYuWrDs8YLSrbt+WlInkYvUGkD+yrlvfCNqiZU+LIAYAwznc+ORlcpD9gn7xVdmiF0LsdR+ujQxwtJBroCvLV4wxGgJkwF6Pcbo2JuzWDYwYDBcdEeDoIddhj5Fh6/WqsDjr9t3rawc5DBcig3ZfiwVZ9FDUHx2POd2YmTbW0bU7+pG6m1fU9+4tmKDV2dZb/ovo/u9eCehIK2VS+y25btHoGYNV512y886N1d6xF4JbHgrTk2UHZEj3dV8yJmQ1wXX37uoMFw7X7G9kbpYWy+8F7Yu2D3JN7391jrpypz3fl2bYgItnsfw8FoXhwoCjSfZDhk58cYA2bBpTLnqf53uRnAE2dvq2OROvTQYEXD8L3OGJDgz4BxgPThfkeqw+q74WXWP16pgN0Nt22tWZAleMSYD+p/Ui9o76fWQn/ZA16D71ddi11OKsG8CxxXsS7hxuGGt0AGywZSnHnex5LommziRuEXDh3Vu+NJZbXvEbG0Rj/2BYeZRuHdYJa8VCaFgnK9zjx6Xqg+9tdM12Qq5bdoEqSx9SNncq9Dlg6TiqwHN6azs/u+LAKjE0iuWEa+twtLKALCafYW6Sy9SV9Ql5rRsvOm48TQPSZcctjyblltMDeS1wgB5QxzGLrxKdGNPcDH+BHAx23gE9QCuVI5TJJldEYyE0vU7WNDGLsAjkKOO3TtQOke5Ji9OtAyKG/q6SxxRRgRx/HO9zwPdSvQs1SMZegweg887Pc7bFV5GI1X8CDADsqp5M3yYdIgAAAABJRU5ErkJggg==\",\"contentType\":\"image/png\",\"width\":15,\"height\":15}}}},\"url\":\"https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/Hospitales/FeatureServer/0\"},{\"id\":\"VectorTile_1645\",\"title\":\"VectorTile_1645\",\"opacity\":1,\"minScale\":0,\"maxScale\":0,\"type\":\"VectorTileLayer\",\"styleUrl\":\"https://cdn.arcgis.com/sharing/rest/content/items/d8f405cb94944b0d8aab490b392f3220/resources/styles/root.json\",\"token\":\"DygPW5fPG9Chkl1wfKQY88H6_cQPaRWZ7uqAd2M26L5UXRyRBwhGF9yr5sNpVKwOsvqSS9UWqO4803hWxHG09GVnj4D6fwq0elGfTD5AlPWFH5ymU5CTlxxVXHBNQJ3pSYC6cdC3mipZLYEVr10NbaqC--PKozrduwyhMgoHxyZknnNzP3AVE13UrkzepC4D81U7f2ahHcQmgwglEGAlE64213A91fSMtIdhSGZNcIk.\"}],\"exportOptions\":{\"outputSize\":[746,575],\"dpi\":96}}",
+							"type": "text"
+						},
+						{
+							"key": "format",
+							"value": "png32",
+							"type": "text"
+						},
+						{
+							"key": "layout_template",
+							"value": "map_only",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute",
+					"protocol": "https",
+					"host": [
+						"utility",
+						"arcgisonline",
+						"com"
+					],
+					"path": [
+						"arcgis",
+						"rest",
+						"services",
+						"Utilities",
+						"PrintingTools",
+						"GPServer",
+						"Export%20Web%20Map%20Task",
+						"execute"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
